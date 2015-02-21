@@ -1,4 +1,4 @@
-package actionsniper;
+package auctionsniper;
 
 import java.awt.Color;
 

@@ -1,7 +1,7 @@
 package test.endtoend.actionsniper;
 
-import actionsniper.Main;
-import actionsniper.Main.MainWindow;
+import auctionsniper.Main;
+import auctionsniper.Main.MainWindow;
 
 public class ApplicationRunner {
 
