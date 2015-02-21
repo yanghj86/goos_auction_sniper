@@ -1,6 +1,7 @@
 package test.endtoend.actionsniper;
 
 import actionsniper.Main;
+import actionsniper.Main.MainWindow;
 
 public class ApplicationRunner {
 
@@ -8,7 +9,6 @@ public class ApplicationRunner {
   	public static final String SNIPER_PASSWORD = "sniper";
 	protected static final String XMPP_HOSTNAME = "daumyangui-macbook-pro.local";
 	private static final String STATUS_JOINING = "Joining";
-	private static final String STATUS_LOST = "Lost";	
 	public static final String SNIPER_XMPP_ID = SNIPER_ID + "@" +XMPP_HOSTNAME + "/Auction";
 
 
@@ -31,9 +31,14 @@ public class ApplicationRunner {
 		
 		driver.showsSniperStatus(STATUS_JOINING);
 	}
+	
+	public void hasShownSniperIsBidding() {
+		driver.showsSniperStatus(MainWindow.STATUS_BIDDING);
+		
+	}
 
 	public void showsSniperHasLostAuction() {
-		driver.showsSniperStatus(STATUS_LOST);
+		driver.showsSniperStatus(MainWindow.STATUS_LOST);
 		
 	}
 

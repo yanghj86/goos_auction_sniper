@@ -7,6 +7,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.XMPPConnection;
@@ -29,6 +32,10 @@ public class Main {
 
 	public static final String MAIN_WINDOW_NAME = "Auction Sniper Main";
 	public static final String SNIPER_STATUS_NAME = "sniper status";
+	
+	public static final String JOIN_COMMAND_FORMAT = "SOLVersion: 1.1; Command: JOIN;";
+	public static final String BID_COMMAND_FORMAT = "SOLVersion: 1.1; Command: BID; Price: %d;";
+
 
 	private MainWindow ui;
 
@@ -49,6 +56,7 @@ public class Main {
 
 	private void joinAuction(XMPPConnection connection, String itemId)
 			throws XMPPException {
+		disconnectWhenUICloses(connection);
 		final Chat chat = connection.getChatManager().createChat(
 				auctionId(itemId, connection), new MessageListener() {
 					public void processMessage(Chat aChat, Message message) {
@@ -60,9 +68,17 @@ public class Main {
 					}
 				});
 		this.notToBeGCd = chat;
-		chat.sendMessage(new Message());
+		chat.sendMessage(JOIN_COMMAND_FORMAT);
 
 	}
+	
+	private void disconnectWhenUICloses(final XMPPConnection connection) { 
+	    ui.addWindowListener(new WindowAdapter() { 
+	      @Override public void windowClosed(WindowEvent e) { 
+	    	  connection.disconnect(); 
+	      } 
+	    }); 
+	  } 
 
 	private static String auctionId(String itemId, XMPPConnection connection) {
 		return String.format(AUCTION_ID_FORMAT, itemId,
@@ -88,14 +104,14 @@ public class Main {
 
 	public class MainWindow extends JFrame {
 
-		public static final String STATUS_LOST = "Lost";
-
 		private static final long serialVersionUID = -4274409492013695538L;
 
 		public static final String SNIPER_STATUS_NAME = "sniper status";
 
 		private static final String STATUS_JOINING = "Joining";
-
+		public static final String STATUS_BIDDING = "Bidding";
+		public static final String STATUS_LOST = "Lost";
+		
 		private final JLabel sniperStatus = createLabel(STATUS_JOINING);
 
 		public MainWindow() {
