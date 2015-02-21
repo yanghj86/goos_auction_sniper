@@ -13,7 +13,7 @@ public class AuctionSniperEndToEndTest {
 	System.setProperty("com.objogate.wl.keyboard", "Mac-GB");
     auction.startSellingItem();                
     application.startBiddingIn(auction);       
-    auction.hasReceivedJoinRequestFromSniper();
+    auction.hasReceivedJoinRequestFromSniper(ApplicationRunner.SNIPER_XMPP_ID);
     
     auction.reportPrice(1000, 98, "other bidder");
     application.hasShownSniperIsBidding();
