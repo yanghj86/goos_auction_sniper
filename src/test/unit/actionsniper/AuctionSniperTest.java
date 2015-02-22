@@ -28,7 +28,7 @@ public class AuctionSniperTest {
 	    atLeast(1).of(sniperListener).sniperBidding(); 
 	    }}); 
 	    
-	    sniper.currentPrice(price, increment, null); 
+	    sniper.currentPrice(price, increment, PriceSource.FromOtherBidder); 
 	  } 
 	
 	@Test public void 
