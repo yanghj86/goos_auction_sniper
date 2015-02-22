@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import auctionsniper.Auction;
 import auctionsniper.AuctionSniper;
 import auctionsniper.SniperListener;
+import auctionsniper.AuctionEventListener.PriceSource;
 
 @RunWith(JMock.class)
 public class AuctionSniperTest {
@@ -38,5 +39,14 @@ public class AuctionSniperTest {
 	    
 	    sniper.auctionClosed(); 
 	}
+	
+	@Test public void 
+	  reportsIsWinningWhenCurrentPriceComesFromSniper() { 
+	    context.checking(new Expectations() {{ 
+	      atLeast(1).of(sniperListener).sniperWinning();
+	    }}); 
+	    
+	    sniper.currentPrice(135, 45, PriceSource.FromSniper); 
+	  } 
 
 }
