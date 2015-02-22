@@ -11,8 +11,7 @@ public class AuctionSniper implements AuctionEventListener {
 
 	@Override
 	public void auctionClosed() {
-		// TODO Auto-generated method stub
-		
+		sniperListener.sniperLost();
 	}
 
 	@Override
